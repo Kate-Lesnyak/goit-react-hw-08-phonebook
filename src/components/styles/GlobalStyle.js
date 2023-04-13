@@ -91,4 +91,16 @@ button {
     box-shadow: ${({ theme }) => theme.boxShadow};
 }
 }
+
+
+/* c фильмов */
+/*
+  button {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+  } */
 `;

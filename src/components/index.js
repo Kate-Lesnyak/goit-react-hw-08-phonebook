@@ -4,5 +4,6 @@ export { Filter } from './Filter';
 export { Notification } from './Notification';
 export { ContactError } from './ContactError';
 export { Loader } from './Loader';
+export { UserMenu } from './UserMenu';
 
 export * from './hooks';
