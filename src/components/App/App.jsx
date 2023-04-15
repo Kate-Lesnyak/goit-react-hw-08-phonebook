@@ -56,16 +56,13 @@
 // };
 
 // todo
-// import { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { selectContacts, selectError, selectIsLoading } from 'redux/selectors';
-// import { fetchContacts } from 'redux/operations';
-
 import { lazy, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import { GlobalStyle } from 'components/styles';
+import { GlobalStyle } from 'styles';
 import { SharedLayout } from 'components/SharedLayout';
+import { useDispatch } from 'react-redux';
+import { useAuth } from 'hooks';
+import { refreshUser } from 'redux/auth/operations';
 
 const Home = lazy(() => import('../../pages/Home/Home'));
 const Login = lazy(() => import('../../pages/Login/Login'));
@@ -74,28 +71,29 @@ const NotFound = lazy(() => import('../../pages/NotFound/NotFound'));
 const Contacts = lazy(() => import('../../pages/Contacts/Contacts'));
 
 export const App = () => {
-  // const contacts = useSelector(selectContacts);
-  // const isLoading = useSelector(selectIsLoading);
-  // const error = useSelector(selectError);
+  const dispatch = useDispatch();
+  const { isRefreshing } = useAuth();
 
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch();
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
 
   return (
     <>
       <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Home />} />
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-          <Route path="contacts" element={<Contacts />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
+      {isRefreshing ? (
+        <b>Refreshing user...</b>
+      ) : (
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<Home />} />
+            <Route path="register" element={<Register />} />
+            <Route path="login" element={<Login />} />
+            <Route path="contacts" element={<Contacts />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      )}
     </>
   );
 };

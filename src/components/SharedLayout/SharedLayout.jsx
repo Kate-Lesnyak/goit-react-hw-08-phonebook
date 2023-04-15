@@ -5,15 +5,19 @@ import { Container } from 'components/App/App.styled';
 import { StyledSharedLayout, HeaderWrapper } from './SharedLayout.styled';
 import { Navigation } from 'components/Navigation';
 import { AuthNav } from 'components/AuthNav';
+import { UserMenu } from 'components/UserMenu';
+
+import { useAuth } from 'hooks';
 
 export const SharedLayout = () => {
+  const { isLoggedIn } = useAuth();
   return (
     <>
       <StyledSharedLayout>
         <Container>
           <HeaderWrapper>
             <Navigation />
-            <AuthNav />
+            {isLoggedIn ? <UserMenu /> : <AuthNav />}
           </HeaderWrapper>
         </Container>
       </StyledSharedLayout>

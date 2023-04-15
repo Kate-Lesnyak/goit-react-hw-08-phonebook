@@ -4,10 +4,9 @@ import * as Yup from 'yup';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { addContact } from 'redux/operations';
-// import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/contacts/operations';
+import { selectContacts } from 'redux/contacts/selectors';
 
-import { selectContacts } from 'redux/selectors';
 import {
   StyledForm,
   StyledFormField,
@@ -15,18 +14,24 @@ import {
   StyledInput,
   StyledButton,
   StyledErrorMessage,
-} from './ContactForm.styled';
+} from 'components/SharedLayout/SharedLayout.styled';
 
-const formSchema = Yup.object({
+const nameRegex = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
+
+const numberRegex = /^\+?(\d{1,2})?[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
+
+const formSchema = Yup.object().shape({
   name: Yup.string()
-    .matches(/^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/, {
+    .trim()
+    .matches(nameRegex, {
       message:
         "Invalid name. Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan.",
     })
     .required('Name is a required field'),
 
   number: Yup.string()
-    .matches(/^\+?(\d{1,2})?[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/, {
+    .trim()
+    .matches(numberRegex, {
       message:
         'Invalid number. Phone number must be digits and can contain spaces, dashes, parentheses and can start with +. For example: (123) 456-7890, 123-456-7890, 123.456.7890, 1234567890, +91 (123) 456-7890',
     })

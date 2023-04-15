@@ -1,9 +1,9 @@
 import { DebounceInput } from 'react-debounce-input';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectFilter } from 'redux/selectors';
+import { selectFilter } from 'redux/contacts/selectors';
 
-import { setFilterValue } from 'redux/filterSlice';
+import { setFilterValue } from 'redux/contacts/filterSlice';
 // import { setFilterValue } from 'redux/actions';
 
 import { StyledFilter, StyledInput } from './Filter.styled';

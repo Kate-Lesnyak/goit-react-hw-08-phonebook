@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from 'components/SharedLayout/SharedLayout.styled';
 
 export const StyledContactListItem = styled.li`
 display: flex;
@@ -13,7 +14,7 @@ export const StyledName = styled.p`
 font-weight: 500;
 `;
 
-export const StyledButton = styled.button`
+export const StyledButton = styled(Button)`
 display: flex;
 justify-content: 'center';
 align-items: center;

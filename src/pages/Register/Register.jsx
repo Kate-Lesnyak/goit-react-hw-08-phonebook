@@ -5,7 +5,7 @@ const Register = () => {
   return (
     <Section>
       <Container>
-        <h1>Register</h1>
+        <h1>Registration</h1>
         <RegisterForm />
       </Container>
     </Section>

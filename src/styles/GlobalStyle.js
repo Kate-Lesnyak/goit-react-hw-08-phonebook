@@ -77,30 +77,10 @@ h1, h2 {
 }
 
 button {
-  color: ${({ theme }) => theme.colors.buttonTextColor};
+  border: none;
+  font: inherit;
+  color: inherit;
   background-color: transparent;
-  border: ${({ theme }) => `1px solid ${theme.colors.accentColor}`};
-  border-radius: ${({ theme }) => theme.spacing(2)};
-  transition-property: color, background-color, box-shadow;
-  transition: ${({ theme }) => `background-color ${theme.transition}, color ${theme.transition}, box-shadow ${theme.transition}`};
-
-  :hover, :focus {
-    outline: none;
-    color: ${({ theme }) => theme.colors.secondaryTextColor};
-    background-color: ${({ theme }) => theme.colors.accentColor};
-    box-shadow: ${({ theme }) => theme.boxShadow};
-}
-}
-
-
-/* c фильмов */
-/*
-  button {
-    padding: 0;
-    border: none;
-    font: inherit;
-    color: inherit;
-    background-color: transparent;
-    cursor: pointer;
-  } */
+  cursor: pointer;
+  }
 `;

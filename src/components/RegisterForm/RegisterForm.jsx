@@ -1,12 +1,10 @@
 import { Formik } from 'formik';
-import { Notify } from 'notiflix';
-// import * as Yup from 'yup';
+import * as Yup from 'yup';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-// import { addContact } from 'redux/operations';
+import { register } from 'redux/auth/operations';
 
-import { selectContacts } from 'redux/selectors';
 import {
   StyledForm,
   StyledFormField,
@@ -14,49 +12,44 @@ import {
   StyledInput,
   StyledButton,
   StyledErrorMessage,
-} from './RegisterForm.styled';
+} from 'components/SharedLayout/SharedLayout.styled';
 
-// const formSchema = Yup.object({
-//   name: Yup.string()
-//     .matches(/^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/, {
-//       message:
-//         "Invalid name. Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan.",
-//     })
-//     .required('Name is a required field'),
+const nameRegex = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
 
-//   number: Yup.string()
-//     .matches(/^\+?(\d{1,2})?[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/, {
-//       message:
-//         'Invalid number. Phone number must be digits and can contain spaces, dashes, parentheses and can start with +. For example: (123) 456-7890, 123-456-7890, 123.456.7890, 1234567890, +91 (123) 456-7890',
-//     })
-//     .required('Number is a required field'),
-// });
+const emailRegex =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-// export const RegisterForm = () => {
-//   return <form></form>;
-// };
+const formSchema = Yup.object().shape({
+  name: Yup.string()
+    .trim()
+    .matches(nameRegex, {
+      message:
+        "Invalid name. Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan.",
+    })
+    .required('Name is a required field'),
+
+  email: Yup.string()
+    .trim()
+    .matches(emailRegex, {
+      message: 'Email is invalid.',
+    })
+    .required('Email is a required field'),
+
+  password: Yup.string().trim().min(7).required('Password is a required field'),
+});
 
 export const RegisterForm = () => {
-  const contacts = useSelector(selectContacts);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleSubmit = (values, { resetForm }) => {
-    const normalizedName = values.name.toLowerCase();
-    const nameExists = contacts.find(
-      ({ name }) => name.toLowerCase() === normalizedName
-    );
-    if (nameExists) {
-      return Notify.info(`${values.name} is already in contacts!`);
-    }
-
-    // dispatch(addContact(values));
+    dispatch(register(values));
     resetForm();
   };
 
   return (
     <Formik
       initialValues={{ name: '', email: '', password: '' }}
-      // validationSchema={formSchema}
+      validationSchema={formSchema}
       onSubmit={handleSubmit}
     >
       <StyledForm>
@@ -69,13 +62,13 @@ export const RegisterForm = () => {
         <StyledFormField>
           <StyledLabel>Email</StyledLabel>
           <StyledInput type="email" name="email" />
-          <StyledErrorMessage name="number" component="div" />
+          <StyledErrorMessage name="email" component="div" />
         </StyledFormField>
 
         <StyledFormField>
           <StyledLabel>Password</StyledLabel>
           <StyledInput type="password" name="password" />
-          <StyledErrorMessage name="number" component="div" />
+          <StyledErrorMessage name="password" component="div" />
         </StyledFormField>
 
         <StyledButton type="submit">Register</StyledButton>

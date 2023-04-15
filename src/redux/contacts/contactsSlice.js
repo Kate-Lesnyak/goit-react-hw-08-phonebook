@@ -112,6 +112,7 @@
 // todo addCase, addMatcher
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { addContact, deleteContact, fetchContacts } from "./operations";
+import { logOut } from "redux/auth/operations";
 
 const contactsInitialState = {
   items: [],
@@ -139,7 +140,11 @@ const contactsSlice = createSlice({
         // );
         // state.items.splice(index, 1);
       })
-
+      .addCase(logOut, state => {
+        state.items = [];
+        state.isLoading = false;
+        state.error = null;
+      })
       .addMatcher(
         isAnyOf(...extraActions.map(action => action.pending)),
         state => {
