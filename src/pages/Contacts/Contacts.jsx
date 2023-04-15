@@ -32,10 +32,9 @@ const Contacts = () => {
   return (
     <Section>
       <Container>
-        <h1>Phone book</h1>
         <ContactForm />
 
-        <h2>Contacts</h2>
+        <h1>Contacts</h1>
         {isLoading && <Loader />}
         {error && (
           <b>

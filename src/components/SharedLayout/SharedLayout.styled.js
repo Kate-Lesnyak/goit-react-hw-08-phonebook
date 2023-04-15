@@ -6,7 +6,7 @@ import { Form, Field, ErrorMessage } from 'formik';
 export const StyledSharedLayout = styled.header`
   padding-top: ${({ theme }) => theme.spacing(5)};
   padding-bottom: ${({ theme }) => theme.spacing(5)};
-  border-bottom: ${({ theme }) => `1px solid ${theme.colors.backgroundColor}`};;
+  border-bottom: ${({ theme }) => `2px solid ${theme.colors.buttonBackgroundColorAccent}`};
 `;
 
 export const HeaderWrapper = styled.div`

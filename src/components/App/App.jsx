@@ -63,6 +63,8 @@ import { SharedLayout } from 'components/SharedLayout';
 import { useDispatch } from 'react-redux';
 import { useAuth } from 'hooks';
 import { refreshUser } from 'redux/auth/operations';
+import { RestrictedRoute } from 'components/RestrictedRoute';
+import { PrivateRoute } from 'components/PrivateRoute';
 
 const Home = lazy(() => import('../../pages/Home/Home'));
 const Login = lazy(() => import('../../pages/Login/Login'));
@@ -87,9 +89,28 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<SharedLayout />}>
             <Route index element={<Home />} />
-            <Route path="register" element={<Register />} />
-            <Route path="login" element={<Login />} />
-            <Route path="contacts" element={<Contacts />} />
+
+            <Route
+              path="register"
+              element={
+                <RestrictedRoute component={Register} redirectTo="/contacts" />
+              }
+            />
+
+            <Route
+              path="login"
+              element={
+                <RestrictedRoute component={Login} redirectTo="/contacts" />
+              }
+            />
+
+            <Route
+              path="contacts"
+              element={
+                <PrivateRoute component={Contacts} redirectTo="/login" />
+              }
+            />
+
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
