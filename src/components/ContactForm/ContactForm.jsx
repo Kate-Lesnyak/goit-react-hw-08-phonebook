@@ -16,6 +16,11 @@ import {
   StyledErrorMessage,
 } from 'components/SharedLayout/SharedLayout.styled';
 
+const initialValues = {
+  name: '',
+  number: '',
+};
+
 const nameRegex = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
 
 const numberRegex = /^\+?(\d{1,2})?[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
@@ -64,7 +69,7 @@ export const ContactForm = () => {
 
   return (
     <Formik
-      initialValues={{ name: '', number: '' }}
+      initialValues={initialValues}
       validationSchema={formSchema}
       onSubmit={handleSubmit}
     >

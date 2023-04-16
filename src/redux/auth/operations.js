@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Notify } from 'notiflix';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
@@ -20,18 +19,9 @@ const clearAuthHeader = () => {
  */
 export const register = createAsyncThunk(
   'auth/register',
-  async ({ name, email, password }, thunkAPI) => {
-    // { name, email, password }
-    const user = {
-      name,
-      email,
-      password,
-    };
-
+  async (user, thunkAPI) => {
     try {
       const { data } = await axios.post('/users/signup', user);
-      Notify.success(`${user.name} is registered`);
-
       //After successfull registration add the token to the HTTP heeader
       setAuthHeader(data.token);
       return data;
@@ -48,11 +38,7 @@ export const register = createAsyncThunk(
 
 export const logIn = createAsyncThunk(
   'auth/login',
-  async ({ email, password }, thunkAPI) => {
-    const user = {
-      email, password
-    }
-
+  async (user, thunkAPI) => {
     try {
       const { data } = await axios.post('/users/login', user);
       //After successfull login add the token to the HTTP heeader

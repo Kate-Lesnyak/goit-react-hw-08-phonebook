@@ -1,6 +1,6 @@
 export { App } from './App';
 export { AuthNav } from './AuthNav';
-export { ContactError } from './ContactError';
+export { Error } from './Error';
 export { ContactForm } from './ContactForm';
 export { ContactList } from './ContactList';
 export { Filter } from './Filter';

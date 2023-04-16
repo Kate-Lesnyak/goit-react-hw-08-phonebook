@@ -8,7 +8,7 @@ import {
 } from 'redux/contacts/selectors';
 
 import {
-  ContactError,
+  Error,
   ContactForm,
   ContactList,
   Filter,
@@ -32,13 +32,12 @@ const Contacts = () => {
   return (
     <Section>
       <Container>
-        <ContactForm />
-
         <h1>Contacts</h1>
+        <ContactForm />
         {isLoading && <Loader />}
         {error && (
           <b>
-            <ContactError error={error} />
+            <Error error={error} />
           </b>
         )}
         {contacts.length > 0 ? (

@@ -2,8 +2,6 @@ import axios from 'axios';
 import { Notify } from 'notiflix';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-// axios.defaults.baseURL = 'https://642b3205208dfe2547142a12.mockapi.io/api/v1';
-
 // GET @ /contacts
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchAll',
@@ -20,12 +18,7 @@ export const fetchContacts = createAsyncThunk(
 // POST @ /contacts
 export const addContact = createAsyncThunk(
   'contacts/addContact',
-  async ({ name, number }, thunkAPI) => {
-    const contact = {
-      name,
-      number,
-    };
-
+  async (contact, thunkAPI) => {
     try {
       const { data } = await axios.post('/contacts', contact);
       Notify.success(`${contact.name} is added to the phone book`);

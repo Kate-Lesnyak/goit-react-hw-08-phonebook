@@ -140,7 +140,7 @@ const contactsSlice = createSlice({
         // );
         // state.items.splice(index, 1);
       })
-      .addCase(logOut, state => {
+      .addCase(logOut.fulfilled, state => {
         state.items = [];
         state.isLoading = false;
         state.error = null;

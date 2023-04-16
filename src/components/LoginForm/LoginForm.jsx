@@ -14,6 +14,11 @@ import {
   StyledErrorMessage,
 } from 'components/SharedLayout/SharedLayout.styled';
 
+const initialValues = {
+  email: '',
+  password: '',
+};
+
 const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -33,12 +38,13 @@ export const LoginForm = () => {
 
   const handleSubmit = (values, { resetForm }) => {
     dispatch(logIn(values));
+
     resetForm();
   };
 
   return (
     <Formik
-      initialValues={{ email: '', password: '' }}
+      initialValues={initialValues}
       validationSchema={formSchema}
       onSubmit={handleSubmit}
     >

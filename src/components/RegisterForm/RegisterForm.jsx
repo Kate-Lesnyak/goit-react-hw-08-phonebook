@@ -14,6 +14,12 @@ import {
   StyledErrorMessage,
 } from 'components/SharedLayout/SharedLayout.styled';
 
+const initialValues = {
+  name: '',
+  email: '',
+  password: '',
+};
+
 const nameRegex = /^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/;
 
 const emailRegex =
@@ -31,7 +37,7 @@ const formSchema = Yup.object().shape({
   email: Yup.string()
     .trim()
     .matches(emailRegex, {
-      message: 'Email is invalid.',
+      message: 'Email is invalid',
     })
     .required('Email is a required field'),
 
@@ -48,7 +54,7 @@ export const RegisterForm = () => {
 
   return (
     <Formik
-      initialValues={{ name: '', email: '', password: '' }}
+      initialValues={initialValues}
       validationSchema={formSchema}
       onSubmit={handleSubmit}
     >

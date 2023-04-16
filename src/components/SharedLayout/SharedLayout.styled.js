@@ -7,6 +7,7 @@ export const StyledSharedLayout = styled.header`
   padding-top: ${({ theme }) => theme.spacing(5)};
   padding-bottom: ${({ theme }) => theme.spacing(5)};
   border-bottom: ${({ theme }) => `2px solid ${theme.colors.buttonBackgroundColorAccent}`};
+  box-shadow: ${({ theme }) => theme.boxShadow};
 `;
 
 export const HeaderWrapper = styled.div`
